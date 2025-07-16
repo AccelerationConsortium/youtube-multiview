@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AC Hardware Streams</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <img src="{{ url_for('static', filename='images/ac-logo.png') }}" alt="Acceleration Consortium" class="logo" onerror="this.style.display='none'">
+            <h1><i class="fab fa-youtube"></i> AC Hardware Streams</h1>
+        </div>
+        <div class="controls">
+            <button id="manage-streams-btn" class="btn btn-primary">
+                <i class="fas fa-cog"></i> Manage Streams
+            </button>
+            <button id="fullscreen-btn" class="btn btn-secondary">
+                <i class="fas fa-expand"></i> Fullscreen
+            </button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Stream Management Panel -->
+        <div id="stream-panel" class="stream-panel hidden">
+            <div class="panel-header">
+                <h3>Manage Streams</h3>
+                <button id="close-panel-btn" class="btn btn-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="add-stream-form">
+                <h4>Add New Stream</h4>
+                <div class="form-group">
+                    <input type="text" id="stream-url" placeholder="YouTube URL" class="form-input">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="stream-title" placeholder="Stream Title" class="form-input">
+                </div>
+                <button id="add-stream-btn" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Add Stream
+                </button>
+            </div>
+
+            <div class="streams-list">
+                <h4>Available Streams</h4>
+                <div id="streams-container">
+                    <!-- Streams will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Grid -->
+        <div class="video-grid-container">
+            <div class="grid-controls">
+                <div class="grid-size-controls">
+                    <label>Grid Size:</label>
+                    <button class="grid-btn active" data-size="1">1x1</button>
+                    <button class="grid-btn" data-size="4">2x2</button>
+                    <button class="grid-btn" data-size="9">3x3</button>
+                </div>
+                <div class="selected-streams-info">
+                    <span id="selected-count">0</span> streams selected
+                </div>
+            </div>
+
+            <div id="video-grid" class="video-grid grid-1">
+                <!-- Video players will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Stream Selection Modal -->
+    <div id="stream-selector" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select Streams to Watch</h3>
+                <button id="close-selector-btn" class="btn btn-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="stream-selection-grid" id="stream-selection-grid">
+                    <!-- Available streams for selection -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-selection-btn" class="btn btn-success">
+                    <i class="fas fa-check"></i> Start Watching
+                </button>
+                <button id="cancel-selection-btn" class="btn btn-secondary">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zoomed Video Modal -->
+    <div id="zoom-modal" class="modal hidden">
+        <div class="zoom-modal-content">
+            <div class="zoom-header">
+                <h3 id="zoomed-title">Stream Title</h3>
+                <button id="close-zoom-btn" class="btn btn-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="zoomed-video-container">
+                <!-- Zoomed video will be placed here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
