@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     
     - name: Setup Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: '3.12'
         
@@ -27,10 +27,19 @@ jobs:
       run: |
         python -c "import app; print('App imports successfully')"
         
+    - name: Validate Vercel configuration
+      run: |
+        if [ ! -f vercel.json ]; then
+          echo "Error: vercel.json not found"
+          exit 1
+        fi
+        echo "Vercel configuration found"
+        
     - name: Deploy to Vercel
-      uses: amondnet/vercel-action@v20
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: amondnet/vercel-action@v25
       with:
         vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.ORG_ID}}
-        vercel-project-id: ${{ secrets.PROJECT_ID}}
+        vercel-org-id: ${{ secrets.ORG_ID }}
+        vercel-project-id: ${{ secrets.PROJECT_ID }}
         vercel-args: '--prod'
