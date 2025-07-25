@@ -49,10 +49,23 @@ A web application for the Acceleration Consortium that allows you to stream mult
 - `https://www.youtube.com/embed/VIDEO_ID`
 - `https://www.youtube.com/live/VIDEO_ID`
 
+## Deployment Options
+
+This application supports multiple deployment platforms:
+
+### 🤗 Hugging Face Spaces
+- **Gradio Interface**: `gradio_app.py` 
+- **URL**: [https://huggingface.co/spaces/AccelerationConsortium/youtube-multiview](https://huggingface.co/spaces/AccelerationConsortium/youtube-multiview)
+- **Features**: Modern tabbed interface, embeddable, automatic deployment via GitHub Actions
+
+### ▲ Vercel (Default)
+- **Flask Interface**: `app.py`
+- **Features**: Advanced UI with modals, zoom functionality, responsive design
+
 ## Technical Details
 
-- **Backend**: Flask (Python)
-- **Frontend**: Vanilla JavaScript, HTML5, CSS3
+- **Backend**: Gradio (HF Spaces) / Flask (Vercel)
+- **Frontend**: Gradio Components / Vanilla JavaScript, HTML5, CSS3
 - **Data Storage**: JSON file (streams.json)
 - **YouTube Integration**: YouTube embed API
 
@@ -60,16 +73,24 @@ A web application for the Acceleration Consortium that allows you to stream mult
 
 ```
 youtube-multiview/
-├── app.py                 # Flask backend
-├── requirements.txt       # Python dependencies
+├── app.py                 # Flask backend (Vercel)
+├── gradio_app.py          # Gradio backend (HF Spaces)  
+├── requirements.txt       # Python dependencies (Flask)
+├── requirements-gradio.txt # Python dependencies (Gradio)
 ├── streams.json          # Stream data storage (auto-generated)
+├── Dockerfile            # Docker configuration for HF Spaces
+├── README_HF.md          # HF Spaces README
+├── .github/
+│   └── workflows/
+│       ├── deploy.yml    # Vercel deployment
+│       └── deploy-hf.yml # HF Spaces deployment
 ├── static/
 │   ├── css/
-│   │   └── style.css     # Styling
+│   │   └── style.css     # Styling (Flask)
 │   └── js/
-│       └── app.js        # Frontend JavaScript
+│       └── app.js        # Frontend JavaScript (Flask)
 └── templates/
-    └── index.html        # Main HTML template
+    └── index.html        # Main HTML template (Flask)
 ```
 
 ## Browser Compatibility

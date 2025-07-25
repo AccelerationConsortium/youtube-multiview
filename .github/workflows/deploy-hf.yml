@@ -1,0 +1,72 @@
+name: Deploy to Hugging Face Spaces
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'gradio_app.py'
+      - 'requirements-gradio.txt'
+      - 'README_HF.md'
+      - 'Dockerfile'
+      - '.github/workflows/deploy-hf.yml'
+  workflow_dispatch:
+
+jobs:
+  sync-to-hf-spaces:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        lfs: true
+    
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install dependencies and test
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-gradio.txt
+        python -c "import gradio_app; print('Gradio app imports successfully')"
+        
+    - name: Prepare HF Spaces files
+      run: |
+        # Create app.py (required by HF Spaces)
+        cp gradio_app.py app.py
+        
+        # Create requirements.txt (required by HF Spaces)
+        cp requirements-gradio.txt requirements.txt
+        
+        # Create README.md for HF Spaces
+        cp README_HF.md README.md
+        
+        # Verify files exist
+        ls -la app.py requirements.txt README.md
+        
+    - name: Push to Hugging Face Spaces
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        
+        # Clone the HF Spaces repo
+        git clone https://huggingface.co/spaces/AccelerationConsortium/youtube-multiview hf-spaces
+        cd hf-spaces
+        
+        # Copy necessary files
+        cp ../app.py .
+        cp ../requirements.txt .
+        cp ../README.md .
+        cp ../streams.json* . 2>/dev/null || true
+        
+        # Commit and push if there are changes
+        git add .
+        git diff --staged --quiet || (
+          git commit -m "Sync from GitHub: $(date)"
+          git push https://huggingface.co/spaces/AccelerationConsortium/youtube-multiview main
+        )

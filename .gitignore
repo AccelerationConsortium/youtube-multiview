@@ -25,6 +25,18 @@ venv/
 env/
 ENV/
 
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# React/Vite build outputs
+react-version/dist/
+react-version/build/
+
 # IDE
 .vscode/
 .idea/
@@ -42,7 +54,36 @@ instance/
 # Environment variables
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
 .env.*.local
+
+# API keys and secrets
+*.key
+*.pem
+config.json
+secrets.json
+
+# Logs
+logs/
+*.log
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
 
 # Vercel
 .vercel
+
+# Hugging Face
+.hf_token
+
+# Local development
+.local/
+.turbo/
