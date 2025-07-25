@@ -1,0 +1,92 @@
+.live-playlist-manager {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.manager-header h3 {
+  margin: 0;
+  color: #ff6600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.manager-content .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.manager-content label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #f0f6fc;
+}
+
+.manager-content label i {
+  width: 16px;
+  text-align: center;
+  color: #ff6600;
+}
+
+.manager-content small {
+  display: block;
+  margin-top: 0.25rem;
+  color: #8b949e;
+  font-size: 0.8rem;
+}
+
+.manager-actions {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #30363d;
+}
+
+.manager-help {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #0d1117;
+  border-radius: 4px;
+  border-left: 3px solid #ff6600;
+}
+
+.manager-help h4 {
+  margin: 0 0 0.75rem 0;
+  color: #ff6600;
+  font-size: 0.9rem;
+}
+
+.manager-help ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #8b949e;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.manager-help li {
+  margin-bottom: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .live-playlist-manager {
+    padding: 1rem;
+  }
+  
+  .manager-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,396 @@
+.video-grid-container {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Grid Controls */
+.grid-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.grid-size-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.grid-btn {
+  background: #21262d;
+  color: #f0f6fc;
+  border: 1px solid #30363d;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.grid-btn:hover {
+  background: #30363d;
+  border-color: #ff6600;
+}
+
+.grid-btn.active {
+  background: #ff6600;
+  border-color: #ff6600;
+  color: white;
+}
+
+.grid-info {
+  color: #8b949e;
+  font-size: 0.9rem;
+}
+
+.selected-count {
+  font-weight: 500;
+}
+
+/* Video Grid */
+.video-grid {
+  flex: 1;
+  display: grid;
+  gap: 1rem;
+  min-height: 0;
+}
+
+.video-grid.grid-1 {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.video-grid.grid-4 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.video-grid.grid-9 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.video-slot {
+  background: #161b22;
+  border: 2px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.video-slot:hover {
+  border-color: #ff6600;
+}
+
+.video-slot.empty {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d1117;
+  border-style: dashed;
+}
+
+.video-slot.empty:hover {
+  background: #161b22;
+  border-color: #ff6600;
+}
+
+.empty-slot {
+  text-align: center;
+  color: #8b949e;
+  user-select: none;
+}
+
+.empty-slot i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #ff6600;
+}
+
+/* Video Header */
+.video-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: rgba(13, 17, 23, 0.9);
+  border-bottom: 1px solid #30363d;
+}
+
+.video-title {
+  font-weight: 600;
+  color: #f0f6fc;
+  font-size: 0.9rem;
+  flex: 1;
+  margin-right: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.video-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Video Container */
+.video-container {
+  flex: 1;
+  position: relative;
+  background: #000;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Stream Indicator */
+.stream-indicator {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  background: rgba(255, 102, 0, 0.9);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.last-update {
+  margin-left: 0.25rem;
+  opacity: 0.8;
+}
+
+/* Stream Selector Modal */
+.stream-selector-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #30363d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #f0f6fc;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.stream-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.selectable-stream {
+  background: #161b22;
+  border: 2px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.selectable-stream:hover {
+  border-color: #ff6600;
+  transform: translateY(-2px);
+}
+
+.selectable-stream.selected {
+  border-color: #238636;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.stream-preview {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #000;
+  overflow: hidden;
+}
+
+.stream-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stream-overlay {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.live-badge {
+  background: #ff6600;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stream-details {
+  padding: 1rem;
+}
+
+.stream-details h4 {
+  margin: 0 0 0.5rem 0;
+  color: #f0f6fc;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.stream-details p {
+  margin: 0;
+  color: #8b949e;
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected-indicator {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: #238636;
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #8b949e;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.empty-state p {
+  margin: 0.5rem 0;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .video-grid.grid-9 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .video-grid-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .grid-controls {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .grid-size-buttons {
+    justify-content: center;
+  }
+  
+  .video-grid {
+    gap: 0.75rem;
+  }
+  
+  .video-grid.grid-4,
+  .video-grid.grid-9 {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(var(--grid-size), 200px);
+  }
+  
+  .modal-content {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+  
+  .stream-selection-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .video-header {
+    padding: 0.5rem;
+  }
+  
+  .video-title {
+    font-size: 0.8rem;
+  }
+}
