@@ -58,15 +58,46 @@ def test_templates():
     print("✓ Required templates exist")
     return True
 
+def test_static_files():
+    """Test that required static files exist"""
+    required_files = [
+        'static/css/style.css',
+        'static/js/app.js'
+    ]
+    
+    missing_files = []
+    for file in required_files:
+        if not os.path.exists(file):
+            missing_files.append(file)
+    
+    if missing_files:
+        print(f"✗ Missing static files: {', '.join(missing_files)}")
+        return False
+    
+    print("✓ Required static files exist")
+    return True
+
+def test_flask_availability():
+    """Test that Flask is available"""
+    try:
+        import flask
+        print(f"✓ Flask {flask.__version__} is installed")
+        return True
+    except ImportError:
+        print("✗ Flask is not installed - run: pip install flask")
+        return False
+
 def main():
     """Run all deployment tests"""
     print("Running deployment readiness tests...\n")
     
     tests = [
         test_app_import,
+        test_flask_availability,
         test_vercel_config,
         test_requirements,
-        test_templates
+        test_templates,
+        test_static_files
     ]
     
     passed = 0
