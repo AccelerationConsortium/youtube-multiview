@@ -23,5 +23,49 @@
     "id": "jfKfPfyJRdk",
     "title": "Test Stream",
     "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk"
+  },
+  {
+    "id": "playlist_PL8uZlc2CEpektbS203dd9OSji5iDtAGOJ",
+    "title": "Stream 1",
+    "url": "https://www.youtube.com/playlist?list=PL8uZlc2CEpektbS203dd9OSji5iDtAGOJ",
+    "type": "playlist",
+    "playlist_id": "PL8uZlc2CEpektbS203dd9OSji5iDtAGOJ"
+  },
+  {
+    "id": "playlist_PL8uZlc2CEpendLUt-IIGI1tx3zZ_p8oZA",
+    "title": "Stream 2",
+    "url": "https://www.youtube.com/playlist?list=PL8uZlc2CEpendLUt-IIGI1tx3zZ_p8oZA",
+    "type": "playlist",
+    "playlist_id": "PL8uZlc2CEpendLUt-IIGI1tx3zZ_p8oZA"
+  },
+  {
+    "id": "playlist_PL8uZlc2CEpektbS203dd9OSji5iDtAGOJ,https://www.youtube.com/playlist",
+    "title": "Stream 1",
+    "url": "https://www.youtube.com/playlist?list=PL8uZlc2CEpektbS203dd9OSji5iDtAGOJ,https://www.youtube.com/playlist?list=PL8uZlc2CEpendLUt-IIGI1tx3zZ_p8oZA",
+    "type": "playlist",
+    "playlist_id": "PL8uZlc2CEpektbS203dd9OSji5iDtAGOJ,https://www.youtube.com/playlist"
+  },
+  {
+    "id": "7r0YJ-5-2kY",
+    "title": "test",
+    "url": "https://www.youtube.com/watch?v=7r0YJ-5-2kY",
+    "type": "video"
+  },
+  {
+    "id": "playlist_PL8uZlc2CEpelf9jikjX0cCCEzOVtHaPDA",
+    "title": "ot2",
+    "url": "https://www.youtube.com/playlist?list=PL8uZlc2CEpelf9jikjX0cCCEzOVtHaPDA",
+    "type": "playlist",
+    "playlist_id": "PL8uZlc2CEpelf9jikjX0cCCEzOVtHaPDA",
+    "latest_video": {
+      "id": "dRvAWrnfHTA",
+      "title": "OT2-LCM-TrainingLab stream @AC cam-fb7p, 2025-07-24 UTC 17:00",
+      "url": "https://www.youtube.com/watch?v=dRvAWrnfHTA",
+      "thumbnail": "https://i.ytimg.com/vi/dRvAWrnfHTA/mqdefault.jpg",
+      "published_at": "2025-07-25T01:16:17Z",
+      "is_live": true,
+      "live_status": true,
+      "playlist_id": "PL8uZlc2CEpelf9jikjX0cCCEzOVtHaPDA"
+    }
   }
 ]
