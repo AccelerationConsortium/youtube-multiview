@@ -44,6 +44,24 @@
                 <button id="add-stream-btn" class="btn btn-success">
                     <i class="fas fa-plus"></i> Add Stream
                 </button>
+                
+                {% if auto_refresh_enabled %}
+                <div class="refresh-section">
+                    <hr>
+                    <h4>Auto Refresh</h4>
+                    <p class="help-text">Automatically fetch latest streams from monitored YouTube channels</p>
+                    <button id="refresh-streams-btn" class="btn btn-primary">
+                        <i class="fas fa-sync"></i> Refresh from YouTube
+                    </button>
+                    <div id="refresh-status" class="refresh-status">
+                        {% if last_updated %}
+                        Last updated: {{ last_updated }}
+                        {% else %}
+                        Never updated from YouTube API
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
             </div>
 
             <div class="streams-list">

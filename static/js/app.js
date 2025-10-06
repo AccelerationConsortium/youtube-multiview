@@ -29,6 +29,14 @@ class YouTubeMultiView {
             this.addStream();
         });
 
+        // YouTube API refresh (if button exists)
+        const refreshBtn = document.getElementById('refresh-streams-btn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                this.refreshStreams();
+            });
+        }
+
         // Grid controls
         document.querySelectorAll('.grid-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -70,9 +78,22 @@ class YouTubeMultiView {
     async loadStreams() {
         try {
             const response = await fetch('/api/streams');
-            this.streams = await response.json();
+            const data = await response.json();
+            
+            // Handle both old format (array) and new format (object with metadata)
+            if (Array.isArray(data)) {
+                this.streams = data;
+                this.lastUpdated = null;
+                this.autoRefreshEnabled = false;
+            } else {
+                this.streams = data.streams || [];
+                this.lastUpdated = data.last_updated;
+                this.autoRefreshEnabled = data.auto_refresh_enabled || false;
+            }
+            
             this.updateStreamsList();
             this.updateStreamSelector();
+            this.updateRefreshStatus();
         } catch (error) {
             console.error('Error loading streams:', error);
             this.showError('Failed to load streams');
@@ -137,6 +158,77 @@ class YouTubeMultiView {
         } catch (error) {
             console.error('Error deleting stream:', error);
             this.showError('Failed to delete stream');
+        }
+    }
+
+    async refreshStreams() {
+        const refreshBtn = document.getElementById('refresh-streams-btn');
+        if (refreshBtn) {
+            refreshBtn.disabled = true;
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+        }
+
+        try {
+            const response = await fetch('/api/refresh-streams', {
+                method: 'POST',
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                this.showSuccess(result.message || 'Streams refreshed successfully');
+                await this.loadStreams();
+            } else {
+                const error = await response.json();
+                this.showError(error.error || 'Failed to refresh streams');
+            }
+        } catch (error) {
+            console.error('Error refreshing streams:', error);
+            this.showError('Failed to refresh streams');
+        } finally {
+            if (refreshBtn) {
+                refreshBtn.disabled = false;
+                refreshBtn.innerHTML = '<i class="fas fa-sync"></i> Refresh from YouTube';
+            }
+        }
+    }
+
+    async checkStatus() {
+        try {
+            const response = await fetch('/api/status');
+            const status = await response.json();
+            this.updateStatusDisplay(status);
+            return status;
+        } catch (error) {
+            console.error('Error checking status:', error);
+            return null;
+        }
+    }
+
+    updateStatusDisplay(status) {
+        // Update any status indicators in the UI
+        if (status) {
+            this.autoRefreshEnabled = status.auto_refresh_available;
+            this.lastUpdated = status.last_updated;
+            this.updateRefreshStatus();
+        }
+    }
+
+    updateRefreshStatus() {
+        // Update refresh status display
+        const statusElement = document.getElementById('refresh-status');
+        if (statusElement) {
+            if (this.lastUpdated) {
+                const date = new Date(this.lastUpdated);
+                statusElement.textContent = `Last updated: ${date.toLocaleString()}`;
+            } else {
+                statusElement.textContent = 'Never updated from YouTube API';
+            }
+        }
+
+        // Show/hide refresh button based on availability
+        const refreshBtn = document.getElementById('refresh-streams-btn');
+        if (refreshBtn) {
+            refreshBtn.style.display = this.autoRefreshEnabled ? 'inline-block' : 'none';
         }
     }
 
